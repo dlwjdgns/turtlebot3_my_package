@@ -59,7 +59,7 @@ class SequentialNavigator(Node):
                 (0.0, 0.0, 0.0)
             ]
             # 2. 정밀 주차/도킹 목표 좌표 (x, y, 목표 yaw 각도(degree))
-            self.parking_goal_data = (0.750, 0.500, 180)
+            self.parking_goal_data = (0.710, 0.500, 180)
         self.current_index = 0
 
         self.angle_tolerance = 0.05       # 약 2.8도
@@ -121,7 +121,7 @@ class SequentialNavigator(Node):
         dx = self.goal_pose.pose.position.x - current_x
         dy = self.goal_pose.pose.position.y - current_y
 
-        desired_heading = math.atan2(dy, dx)
+        desired_heading = math.atan2(-dy, -dx) #후진 주차를 위한 부호
         error_angle = normalize_angle(desired_heading - current_yaw)
 
         if abs(error_angle) > self.angle_tolerance:
@@ -142,8 +142,9 @@ class SequentialNavigator(Node):
 
         if dist_err > self.distance_tolerance:
             msg.twist.linear.x = float(np.clip(self.linear_pid.update(dist_err), -0.15, 0.15))
+            msg.twist.linear.x = -msg.twist.linear.x
 
-            desired_heading = math.atan2(dy, dx)
+            desired_heading = math.atan2(-dy, -dx) #후진 주차를 위한 부호
             error_angle = normalize_angle(desired_heading - current_yaw)
             msg.twist.angular.z = float(np.clip(self.angular_pid.update(error_angle), -0.4, 0.4))
         else:
