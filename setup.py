@@ -24,7 +24,9 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'turtlebot3_my_ctrl = turtlebot3_my_package.turtlebot3_my_ctrl:main'
+            'turtlebot3_my_ctrl = turtlebot3_my_package.turtlebot3_my_ctrl:main',
+            'patrol_manager = turtlebot3_my_package.patrol_manager:main',
+            'precision_docking_server = turtlebot3_my_package.precision_docking_server:main'
         ],
     },
 )

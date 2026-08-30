@@ -1,0 +1,11 @@
+twist_mux:
+  ros__parameters:
+    topics:
+      docking:
+        topic: /cmd_vel_dock
+        timeout: 0.5
+        priority: 100  # 도킹 제어 우선
+      navigation:
+        topic: /cmd_vel_nav
+        timeout: 0.5
+        priority: 50   # Nav2 일반 주행 기본 우선순위
