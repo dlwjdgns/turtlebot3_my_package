@@ -168,6 +168,7 @@ class SequentialNavigator(Node):
             self.state = "finished"
             self.goal_pose = None
             self.get_logger().info('★ 최종 정밀 주차/도킹 완료!')
+            self.angular_pid.reset()
             
             # 1. 정지 명령 먼저 퍼블리시
             if rp.ok():
